@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Word Database</title>
+</h:head>
+
+<h:body>
+    <h:form id="word-form">
+
+        <p:panel header="Create word">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputText value="Word: "/>
+                <p:inputText id="word-field" value="#{word.wordName}"/>
+
+                <p:commandButton id="submit" value="Submit"
+                                 update="greeting-panel"
+                                 oncomplete="PF('answerDialog').show()"
+                                 action="#{word.insertData()}"/>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:dialog header="Answer" widgetVar="answerDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="greeting-panel" columns="1" cellpadding="4">
+                <h:outputText value="#{word.showGreeting()}"/>
+            </h:panelGrid>
+        </p:dialog>
+
+
+
+
+        <p:panel header="List word">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputText value="Word: "/>
+                <p:inputText id="listWord-field" value="#{word.wordNameForFetch}"/>
+                <p:commandButton id="query" value="Fetch All Data"
+                                 update="fetch-panel"
+                                 action="#{word.fetchData()}"
+                                 oncomplete="PF('listAnswerDialog').show()"/>
+
+                <p:commandButton id="singleQuery" value="Fetch Searched Word"
+                                 update="fetch-single-panel"
+                                 action="#{word.fetchSingleData()}"
+                                 oncomplete="PF('listSingleAnswerDialog').show()"/>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:dialog header="Answer" widgetVar="listAnswerDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="fetch-panel" columns="3" cellpadding="4">
+                <h:outputText value="#{word.showData()}"/>
+            </h:panelGrid>
+        </p:dialog>
+
+        <p:dialog header="Answer" widgetVar="listSingleAnswerDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="fetch-single-panel" columns="3" cellpadding="4">
+                <h:outputText value="#{word.showData()}"/>
+            </h:panelGrid>
+        </p:dialog>
+
+
+        <p:panel header="Update word">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputText value="Word ID: "/>
+                <p:inputText id="wordID_Updatefield" value="#{word.idUpdate}"/>
+                <h:outputText value="new Word: "/>
+                <p:inputText id="word_Updatefield" value="#{word.wordNameForUpdate}"/>
+
+                <p:commandButton id="submitUpdate" value="Update"
+                                 update="update_panel"
+                                 oncomplete="PF('updateDialog').show()"
+                                 action="#{word.updateData()}"/>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:panel header="Delete word">
+            <h:panelGrid columns="2" cellpadding="4">
+                <h:outputText value="Word ID: "/>
+                <p:inputText id="wordID-field" value="#{word.id}"/>
+
+                <p:commandButton id="submitDelete" value="Delete"
+                                 update="delete_panel"
+                                 oncomplete="PF('deleteDialog').show()"
+                                 action="#{word.deleteData()}"/>
+
+                <p:commandButton id="submitPurgeTable" value="Delete All"
+                                 update="delete_all_panel"
+                                 oncomplete="PF('deleteAllDialog').show()"
+                                 action="#{word.purgeData()}"/>
+            </h:panelGrid>
+        </p:panel>
+
+        <p:dialog header="Answer" widgetVar="deleteDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="delete_panel" columns="3" cellpadding="4">
+                <h:outputText value="#{word.showData()}"/>
+            </h:panelGrid>
+        </p:dialog>
+
+        <p:dialog header="Answer" widgetVar="deleteAllDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="delete_all_panel" columns="3" cellpadding="4">
+                <h:outputText value="#{word.showData()}"/>
+            </h:panelGrid>
+        </p:dialog>
+
+
+
+
+
+
+        <p:dialog header="Answer" widgetVar="updateDialog"
+                  modal="true" resizable="false">
+            <h:panelGrid id="update_panel" columns="3" cellpadding="4">
+                <h:outputText value="#{word.showUpdatedData()}"/>
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>
